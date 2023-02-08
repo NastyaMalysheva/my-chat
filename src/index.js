@@ -1,17 +1,35 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React, {createContext} from 'react';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+import ReactDOM from 'react-dom';
+import App from './App';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
+import 'firebase/compat/firestore';
+
+import './index.scss';
+
+firebase.initializeApp({
+    apiKey: "AIzaSyBVC37wSX08gaiMlHxxOv4R-vPPxQpoHBY",
+    authDomain: "my-real-chat-eb0f1.firebaseapp.com",
+    projectId: "my-real-chat-eb0f1",
+    storageBucket: "my-real-chat-eb0f1.appspot.com",
+    messagingSenderId: "291380122547",
+    appId: "1:291380122547:web:510d0ae9019e65850071c6",
+    measurementId: "G-PW4W1KDW1Z"
+})
+const auth = firebase.auth()
+const firestore = firebase.firestore()
+
+
+export const Context = createContext(null)
+
+ReactDOM.render(
+    <React.StrictMode>
+        <Context.Provider value={{auth, firebase, firestore}}>
+            <App/>
+        </Context.Provider>
+    </React.StrictMode>,
+    document.getElementById('root')
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+
